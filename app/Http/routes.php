@@ -13,6 +13,7 @@
 
 
 
+
 Route::get('/', 'PagesController@home');
 Route::get('/home', 'PagesController@home');
 Route::get('/about', 'PagesController@about');
@@ -37,3 +38,40 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 });
+
+//api routes
+Route::post('/signup', function ()
+{
+    $credentials = Input::only('email', 'password');
+
+    try {
+        $user = User::create($credentials);
+    } catch (Exception $e) {
+        return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+    }
+
+    $token = JWTAuth::fromUser($user);
+
+    return Response::json(compact('token'));
+});
+
+//Route::resource('api/v1/authorize', 'Api\V1\Authorize');
+
+Route::group([
+    'prefix' => 'api/v1',
+    //'namespace' => 'Api\V1'
+    'middleware' => 'test'
+], function () {
+
+    Route::post('/register', 'Api\V1\Authorize@register');
+    Route::post('/login', 'Api\V1\Authorize@login');
+
+});
+
+
+
+
+
+
+
+

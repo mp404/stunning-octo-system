@@ -3,6 +3,7 @@
 namespace guestbook\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use guestbook\Api\User as User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 
     /**

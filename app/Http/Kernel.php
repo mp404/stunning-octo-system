@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \guestbook\Http\Middleware\TestMiddleware::class
     ];
 
     /**
@@ -28,7 +29,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \guestbook\Http\Middleware\VerifyCsrfToken::class,
+           // \guestbook\Http\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
@@ -48,5 +49,6 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \guestbook\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'test' => \guestbook\Http\Middleware\TestMiddleware::class,
     ];
 }
